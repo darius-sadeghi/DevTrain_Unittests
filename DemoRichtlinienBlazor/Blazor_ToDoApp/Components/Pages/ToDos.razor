@@ -1,0 +1,28 @@
+﻿@page "/todos"
+@rendermode InteractiveServer
+@using ToDoApp.Shared.DTOs
+
+@inherits ToDosViewModel
+
+
+@if (Todos == null)
+{
+    <p><em>Loading...</em></p>
+}
+else
+{
+    <div class="row mb-3">
+        <a href="/CreateToDo" class="btn btn-primary btn-sm">Neu</a>
+    </div>
+
+    <div class="row">
+        @foreach (var myItem in Todos)
+        {
+            <ToDoItem CurrentToDo="@myItem" />
+        }
+    </div>
+}
+
+@code {
+
+}

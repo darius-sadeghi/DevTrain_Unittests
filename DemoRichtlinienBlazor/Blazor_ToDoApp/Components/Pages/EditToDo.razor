@@ -1,0 +1,57 @@
+﻿@page "/EditToDo/{id:int}"
+@rendermode InteractiveServer
+
+@using ToDoApp.Shared.DTOs
+@using ToDoApp.Shared.Interfaces
+@inject IToDoExchange toDoProxy
+@inject NavigationManager navigationManager
+
+<h3>EditToDo</h3>
+
+<EditForm Model="@CurrentToDo" OnValidSubmit="@save"
+          FormName="formToDo">
+    <DataAnnotationsValidator />
+    <ValidationSummary />
+
+    <input type="hidden" id="ID" name="CurrentToDo.ID"
+           value="@CurrentToDo.ID" />
+
+    <div class="form-group">
+        <label for="titel">Titel</label>
+        <InputText id="titel" @bind-Value="CurrentToDo.Title" />
+    </div>
+
+    <div class="form-group">
+        <label for="titel">Datum</label>
+        <InputDate id="dueDate" @bind-Value="CurrentToDo.DueDate" />
+    </div>
+
+    <div class="form-group">
+        <label for="titel">Beschreibung</label>
+        <InputTextArea id="description" @bind-Value="CurrentToDo.Description" />
+    </div>
+
+    <button type="submit">speichern</button>
+</EditForm>
+
+@code {
+    [SupplyParameterFromForm]
+    public ToDoDTO CurrentToDo { get; set; } = new ToDoDTO();
+
+    [Parameter]
+    public int Id { get; set; }
+
+    protected async override Task OnParametersSetAsync()
+    {
+        if (Id != CurrentToDo.ID)
+        {
+            CurrentToDo = await toDoProxy.GetById(Id);
+        }
+    }
+
+    private async Task save()
+    {
+        await toDoProxy.Update(Id, CurrentToDo);
+        navigationManager.NavigateTo("todos");
+    }
+}

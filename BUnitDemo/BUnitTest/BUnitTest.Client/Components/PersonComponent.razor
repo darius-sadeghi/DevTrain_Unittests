@@ -1,0 +1,9 @@
+﻿@using BUnitTest.Client.Models
+<h3>PersonComponent</h3>
+<p>@($"{Person.FirstName} {Person.LastName}")</p>
+
+
+@code {
+    [Parameter]
+    public Person Person { get; set; }
+}

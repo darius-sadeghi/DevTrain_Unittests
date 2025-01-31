@@ -1,0 +1,18 @@
+﻿@using ToDoApp.Shared.DTOs
+
+<div class="card bg-light m-3" style="width: 18rem;">
+    <div class="card-header">
+        @CurrentToDo.DueDate.ToString("dd.MM.yyyy")
+    </div>
+    <div class="card-body">
+        <h5 class="card-title">@CurrentToDo.Title</h5>
+        <p class="card-text">@CurrentToDo.Description</p>
+        <a href="/EditToDo/@CurrentToDo.ID" class="btn btn-primary btn-sm">Edit</a>
+        <a href="/DeleteToDo/@CurrentToDo.ID" class="btn btn-primary btn-sm">Delete</a>
+    </div>
+</div>
+
+@code {
+    [Parameter]
+    public ToDoDTO CurrentToDo { get; set; }
+}
