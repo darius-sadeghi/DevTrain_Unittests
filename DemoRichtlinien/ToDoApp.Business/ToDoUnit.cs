@@ -25,5 +25,22 @@ namespace ToDoApp.Business
             return resultDays;
         }
 
+
+        public static double CalculateWorkingDaysFalsch(DateTime start, DateTime end)
+        {
+            int resultDays = 0;
+            int day = start.Day;
+            while (day <= end.Day)
+            {
+                //if (laufDateTime.DayOfWeek != DayOfWeek.Saturday && laufDateTime.DayOfWeek != DayOfWeek.Sunday)
+                //{
+                //    resultDays++;
+                //}
+
+                day++;
+            }
+
+            return resultDays;
+        }   
     }
 }
